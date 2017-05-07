@@ -1,0 +1,60 @@
+<?xml version= "1.0"  encoding= "utf-8" ?>
+<resources>
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">工厂测试</string>
+
+    <string name="but_test_color">LCD 测试</string>
+    <string name="but_test_sd">SD卡测试</string>
+    <string name="but_test_camera">Camera 测试</string>
+    <string name="but_test_wifi">WiFi测试</string>
+    <string name="but_test_bluetooth">Bluetooth 测试</string>
+
+
+    <string name="but_return">返回菜单</string>
+    <string name="but_retest"> 重测本项</string>
+    <string name="but_changecolor">改变颜色</string>
+    <string name="but_next"> 下一项测试</string>
+    <string name="but_exit">退出</string>
+    <string name="but_camera_open"> 打开Camera</string>
+    <string name="but_camera_exit">关闭Camera</string>
+    <string name="but_wifi_open">打开WiFi</string>
+    <string name="but_wifi_close">关闭WiFi</string>
+    <string name="but_bluetooth_open">打开Bluetooth</string>
+    <string name="but_bluetooth_close">关闭Bluetooth</string>
+
+
+
+    <string name="test_color_mess"> 请点击“改变颜色”，显示是否正常！</string>
+    <string name="test_camera_mess">请点击“打开Camera”，测试Camera是否正常！</string>
+    <string name="test_wifi_mess">请点击“打开WiFi/关闭WiFi”，是否有正 确的WiFi信息！</string>
+    <string name="test_wifi_mess_enable">WiFi打开成功！</string>
+    <string name="test_wifi_mess_disable">WiFi关闭成功！</string>
+    <string name="test_wifi_mess_state_changed">WiFi状态改变！</string>
+    <string name="test_wifi_mess_enter_wifisetting">进入 WiFi设置界面</string>
+    <string name="test_wifi_mess_error">未知的WiFi状态！</string>
+    <string name="test_bluetooth_mess">请点击“打开Bluetooth/关闭 Bluetooth”，是否有正确的Bluetooth信息！</string>
+    <string name="test_bluetooth_mess_state_changed">Bluetooth 状态改变！</string>
+    <string name="test_bluetooth_mess_error">未知的Bluetooth 状态！</string>
+
+
+    <string name="batttery_status">电池状态：</string>
+    <string name="battery_voltage">电池电压：</string>
+    <string name="battery_type">电池类型：</string>
+    <string name="battery_level">剩余电量：</string>
+
+    <string name="info_coms">COMS时间：</string>
+    <string name="info_cpu">CPU：</string>
+    <string name="info_memery">内存：</string>
+    <string name="info_gpu">GPU：</string>
+    <string name="info_lcd">点击可更换背景颜色，点击头像进行下一项测试，头像可拖动</string>
+
+    <string name="refresh">刷新</string>
+
+    <string name="sound_basic_test">立体声测试</string>
+    <string name="sound_left_test">左声道测试</string>
+    <string name="sound_right_test">右声道测试</string>
+    <string name="sound_all_test">双声道测试</string>
+    <string name="sound_stop_test">停止播放</string>
+
+</resources>
+

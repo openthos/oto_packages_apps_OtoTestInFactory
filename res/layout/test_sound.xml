@@ -1,0 +1,54 @@
+<?xml version= "1.0"  encoding= "utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt_basic_test"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_basic_test" />
+
+        <Button
+            android:id="@+id/bt_left_test"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_left_test" />
+
+        <Button
+            android:id="@+id/bt_right_test"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_right_test" />
+
+        <Button
+            android:id="@+id/bt_left_and_right_test"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_all_test" />
+
+        <Button
+            android:id="@+id/bt_stop"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_stop_test" />
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/but_exit" />
+
+    </LinearLayout>
+
+</LinearLayout>
