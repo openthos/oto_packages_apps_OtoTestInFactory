@@ -96,11 +96,11 @@ public class SoundFragment extends Fragment {
         mStopTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mBasicThread.isAlive()) {
+                if (mBasicThread.isAlive()) {
                     mBasicThread.pause();
                     mBasicThread.shut();
                 }
-                if (!mSongThread.isAlive()) {
+                if (mSongThread.isAlive()) {
                     mSongThread.pause();
                     mSongThread.shut();
                 }
