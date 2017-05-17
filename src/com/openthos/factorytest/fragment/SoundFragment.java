@@ -34,7 +34,8 @@ public class SoundFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+            @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.test_sound, container, false);
         mBasicTest = (Button) view.findViewById(R.id.bt_basic_test);
         mLeftTest = (Button) view.findViewById(R.id.bt_left_test);
@@ -109,22 +110,26 @@ public class SoundFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mStopTest.performClick();
-                getActivity().finish();
-
+                 mStopTest.performClick();
+                 execDisable();
             }
         });
         return view;
     }
 
-    private class PlayThread extends Thread {
-        // 采样率
-        private int mSampleRateInHz = 44100;
-        // 单声道
-        private int mChannelConfig = AudioFormat.CHANNEL_OUT_MONO;
-        //双声道（立体声）
-        // private int mChannelConfig = AudioFormat.CHANNEL_OUT_STEREO;
+    private void execDisable() {
+        try {
+            Process pro = Runtime.getRuntime().exec(
+                    new String[]{"su","-c","pm disable com.openthos.factorytest"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private class PlayThread extends Thread {
+        private int mSampleRateInHz = 44100;
+        private int mChannelConfig = AudioFormat.CHANNEL_OUT_MONO;
+        // private int mChannelConfig = AudioFormat.CHANNEL_OUT_STEREO;
         private static final String TAG = "PlayThread";
         private Activity mActivity;
         private AudioTrack mAudioTrack;
@@ -150,69 +155,44 @@ public class SoundFragment extends Fragment {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 InputStream inputStream = mActivity.getResources().getAssets().open(mFileName);
 
-                // 缓冲区
                 byte[] buffer = new byte[1024];
-                // 播放进度
                 int playIndex = 0;
-                // 是否缓冲完成
                 boolean isLoaded = false;
-                // 缓冲 + 播放
-                while (null != mAudioTrack && AudioTrack.PLAYSTATE_STOPPED != mAudioTrack.getPlayState()) {
-                    // 字符长度
+                while (null != mAudioTrack
+                        && AudioTrack.PLAYSTATE_STOPPED != mAudioTrack.getPlayState()) {
                     int len;
                     if (-1 != (len = inputStream.read(buffer))) {
                         byteArrayOutputStream.write(buffer, 0, len);
                         data = byteArrayOutputStream.toByteArray();
-                        //Log.i(TAG, "run: 已缓冲 : " + data.length);
                     } else {
-                        // 缓冲完成
                         isLoaded = true;
                     }
 
                     if (AudioTrack.PLAYSTATE_PAUSED == mAudioTrack.getPlayState()) {
-                        // TODO 已经暂停
                     }
                     if (AudioTrack.PLAYSTATE_PLAYING == mAudioTrack.getPlayState()) {
-                        //Log.i(TAG, "run: 开始从 " + playIndex + " 播放");
                         playIndex += mAudioTrack.write(data, playIndex, data.length - playIndex);
-                        //Log.i(TAG, "run: 播放到了 : " + playIndex);
                         if (isLoaded && playIndex == data.length) {
-                            //Log.i(TAG, "run: 播放完了");
                             mAudioTrack.stop();
                         }
 
                         if (playIndex < 0) {
-                            //Log.i(TAG, "run: 播放出错");
                             mAudioTrack.stop();
                             break;
                         }
                     }
                 }
-                //Log.i(TAG, "run: play end");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        /**
-         * 设置左右声道平衡
-         *
-         * @param max     最大值
-         * @param balance 当前值
-         */
         public void setBalance(int max, int balance) {
             float b = (float) balance / (float) max;
-            //Log.i(TAG, "setBalance: b = " + b);
             if (null != mAudioTrack)
                 mAudioTrack.setStereoVolume(1 - b, b);
         }
 
-        /**
-         * 设置左右声道是否可用
-         *
-         * @param left  左声道
-         * @param right 右声道
-         */
         public void setChannel(boolean left, boolean right) {
             if (null != mAudioTrack) {
                 mAudioTrack.setStereoVolume(left ? 1 : 0, right ? 1 : 0);
