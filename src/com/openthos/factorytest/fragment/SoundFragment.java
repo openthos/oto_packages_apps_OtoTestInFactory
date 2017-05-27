@@ -45,7 +45,6 @@ public class SoundFragment extends Fragment {
         mNext = (Button) view.findViewById(R.id.bt_next);
         mBasicThread = new PlayThread(getActivity(), "basic.wav");
         mBasicThread.setChannel(true, true);
-
         mSongThread = new PlayThread(getActivity(), "song.wav");
 
         mBasicTest.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +52,8 @@ public class SoundFragment extends Fragment {
             public void onClick(View v) {
                 mSongThread.pause();
                 if (!mBasicThread.isAlive()) {
+                    mBasicThread = new PlayThread(getActivity(), "basic.wav");
+                    mBasicThread.setChannel(true, true);
                     mBasicThread.start();
                 } else {
                     mBasicThread.play();
@@ -63,10 +64,12 @@ public class SoundFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mBasicThread.pause();
-                mSongThread.setChannel(true, false);
                 if (!mSongThread.isAlive()) {
+                    mSongThread = new PlayThread(getActivity(), "song.wav");
+                    mSongThread.setChannel(true, false);
                     mSongThread.start();
                 } else {
+                    mSongThread.setChannel(true, false);
                     mSongThread.play();
                 }
             }
@@ -75,10 +78,12 @@ public class SoundFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mBasicThread.pause();
-                mSongThread.setChannel(false, true);
                 if (!mSongThread.isAlive()) {
+                    mSongThread = new PlayThread(getActivity(), "song.wav");
+                    mSongThread.setChannel(false, true);
                     mSongThread.start();
                 } else {
+                    mSongThread.setChannel(false, true);
                     mSongThread.play();
                 }
             }
@@ -87,10 +92,13 @@ public class SoundFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mBasicThread.pause();
-                mSongThread.setChannel(true, true);
-                mSongThread.play();
                 if (!mSongThread.isAlive()) {
+                    mSongThread = new PlayThread(getActivity(), "song.wav");
+                    mSongThread.setChannel(true, true);
                     mSongThread.start();
+                } else {
+                    mSongThread.setChannel(true, true);
+                    mSongThread.play();
                 }
             }
         });
@@ -99,11 +107,9 @@ public class SoundFragment extends Fragment {
             public void onClick(View v) {
                 if (mBasicThread.isAlive()) {
                     mBasicThread.pause();
-                    mBasicThread.shut();
                 }
                 if (mSongThread.isAlive()) {
                     mSongThread.pause();
-                    mSongThread.shut();
                 }
             }
         });
@@ -116,6 +122,7 @@ public class SoundFragment extends Fragment {
         });
         return view;
     }
+
 
     private void execDisable() {
         try {
@@ -212,16 +219,18 @@ public class SoundFragment extends Fragment {
             }
         }
 
-        public void shut() {
-            releaseAudioTrack();
-        }
-
         private void releaseAudioTrack() {
             if (null != mAudioTrack) {
                 mAudioTrack.stop();
                 mAudioTrack.release();
                 mAudioTrack = null;
             }
+        }
+
+        @Override
+        public void destroy() {
+            releaseAudioTrack();
+            super.destroy();
         }
     }
 }
