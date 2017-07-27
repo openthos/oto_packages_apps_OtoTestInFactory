@@ -19,4 +19,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
         getFragmentManager().beginTransaction().add(R.id.fragment, new InfoFragment()).commit();
     }
+
+    @Override
+    public void onBackPressed() {}
+
 }

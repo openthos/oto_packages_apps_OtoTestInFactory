@@ -2,12 +2,18 @@ package com.openthos.factorytest.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.AlertDialog;
+import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -125,12 +131,38 @@ public class SoundFragment extends Fragment {
 
 
     private void execDisable() {
-        try {
-            Process pro = Runtime.getRuntime().exec(
-                    new String[]{"su","-c","pm disable com.openthos.factorytest"});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    sleep(1000);
+                    try {
+                        Runtime.getRuntime().exec(
+                                new String[]{"su","-c",
+                                        "pm disable com.openthos.factorytest && poweroff -f"});
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LinearLayout layout = new LinearLayout(getActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        TextView v = new TextView(getActivity());
+        v.setText(R.string.shutdown);
+        v.setGravity(Gravity.CENTER);
+        v.setPadding(10, 0, 10, 20);
+        v.setTextSize(20f);
+        v.setTextColor(Color.WHITE);
+        layout.addView(v);
+        layout.addView(new ProgressBar(getActivity()));
+        builder.setView(layout);
+        builder.setCancelable(false);
+        builder.create().show();
     }
 
     private class PlayThread extends Thread {

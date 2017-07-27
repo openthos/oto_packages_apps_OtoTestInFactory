@@ -55,6 +55,6 @@
     <string name="sound_right_test">右声道测试</string>
     <string name="sound_all_test">双声道测试</string>
     <string name="sound_stop_test">停止播放</string>
+    <string name="shutdown">工厂测试结束，即将关机</string>
 
 </resources>
-

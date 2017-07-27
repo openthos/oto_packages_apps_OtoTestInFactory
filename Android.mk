@@ -31,6 +31,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src) \
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
 
 LOCAL_ASSET_FILES += $(call find-subdir-assets)
+LOCAL_CERTIFICATE := platform
 
 LOCAL_SDK_VERSION := current
 
