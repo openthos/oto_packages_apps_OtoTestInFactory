@@ -17,22 +17,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/test_bluetooth_mess"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:padding="10dp"/>
 
         <TextView
             android:id="@+id/bluetooth_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+            android:textSize="20sp"
+            android:padding= "10dp"/>
 
         <Button
             android:id="@+id/but_changestate"
@@ -47,4 +40,5 @@
             android:text="@string/but_next"/>
 
     </LinearLayout>
+
 </LinearLayout>

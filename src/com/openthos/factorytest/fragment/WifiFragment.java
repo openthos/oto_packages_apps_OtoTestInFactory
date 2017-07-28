@@ -2,7 +2,10 @@ package com.openthos.factorytest.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Camera;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+import java.io.IOException;
 
 import com.openthos.factorytest.R;
 
@@ -32,7 +36,8 @@ public class WifiFragment extends Fragment {
     @SuppressLint("WifiManagerLeak")
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+            @Nullable ViewGroup container, Bundle savedInstanceState) {
         mWifiManager = (WifiManager) getActivity().getSystemService(WIFI_SERVICE);
         View view = inflater.inflate(R.layout.test_wifi, container, false);
         mChangeState = (Button) view.findViewById(R.id.but_changestate);
@@ -46,56 +51,35 @@ public class WifiFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                Runtime.getRuntime().exec(
+                        new String[]{"su","-c", "rm /data/misc/wifi/*.conf"});
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 int i = Camera.getNumberOfCameras();
                 if (i > 0) {
-                    getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new CameraFragment()).commit();
+                    getActivity().getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment, new CameraFragment()).commit();
                 } else {
                     Toast.makeText(getActivity(), "no carema", Toast.LENGTH_SHORT).show();
-                    getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new BluetoothFragment()).commit();
+                    getActivity().getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment, new BluetoothFragment()).commit();
                 }
             }
         });
+        mChangeState.setText("open wifi");
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (mWifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
-            mWifiState = 1;
-            mChangeState.setText("off wifi");
-        } else if (mWifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLED) {
-            mWifiState = 0;
-            mChangeState.setText("on wifi");
-        }
-    }
-
     private void changeWifiState() {
-        switch (mWifiState % 2) {
-            case 0:
-                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                startActivity(intent);
-                new Thread() {
-                    public void run() {
-                        mWifiManager.setWifiEnabled(true);
-                    }
-                }.start();
-                break;
-            case 1:
-                new Thread() {
-                    public void run() {
-                        mWifiManager.setWifiEnabled(false);
-                        mChangeState.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mChangeState.setText("on wifi");
-                            }
-                        });
-                    }
-                }.start();
-                break;
-
-        }
+        new Thread() {
+            public void run() {
+                mWifiManager.setWifiEnabled(true);
+            }
+        }.start();
+        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

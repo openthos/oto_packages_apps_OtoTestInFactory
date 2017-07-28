@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import java.io.IOException;
 
 import com.openthos.factorytest.R;
 
@@ -116,7 +117,9 @@ public class BluetoothFragment extends Fragment {
     private void changeBluetoothState(int state) {
         switch (state % 2) {
             case 0:
-                startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
+                Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 startBluetooth();
                 mChangeState.setText(R.string.but_bluetooth_close);
                 break;
