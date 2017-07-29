@@ -139,7 +139,7 @@ public class SoundFragment extends Fragment {
                     sleep(1000);
                     try {
                         Runtime.getRuntime().exec(
-                                new String[]{"su","-c",
+                                new String[]{"su","-c", "rm -r /sdcard/* && " +
                                         "pm disable com.openthos.factorytest && poweroff -f"});
                     } catch (IOException e) {
                         e.printStackTrace();
