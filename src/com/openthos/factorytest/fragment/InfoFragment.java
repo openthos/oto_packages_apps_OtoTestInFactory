@@ -46,14 +46,14 @@ public class InfoFragment extends Fragment {
         mGpuVIew = (FrameLayout) view.findViewById(R.id.gpu_view);
         mRefrsh = (Button) view.findViewById(R.id.bt_refresh);
         mNext = (Button) view.findViewById(R.id.bt_next);
-        initComsTime();
+        initCmosTime();
         initCpu();
         initMemery();
         initGpu();
         mRefrsh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initComsTime();
+                initCmosTime();
             }
         });
         mNext.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class InfoFragment extends Fragment {
         return view;
     }
 
-    private void initComsTime() {
+    private void initCmosTime() {
         new Thread() {
             @Override
             public void run() {

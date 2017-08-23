@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/info_coms"
+            android:text="@string/info_cmos"
             android:textSize="16sp" />
 
         <TextView

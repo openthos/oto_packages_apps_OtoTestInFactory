@@ -42,7 +42,7 @@
     <string name="battery_type">电池类型：</string>
     <string name="battery_level">剩余电量：</string>
 
-    <string name="info_coms">COMS时间：</string>
+    <string name="info_cmos">CMOS时间：</string>
     <string name="info_cpu">CPU：</string>
     <string name="info_memery">内存：</string>
     <string name="info_gpu">GPU：</string>
