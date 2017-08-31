@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import java.io.IOException;
 
+import com.openthos.factorytest.MainActivity;
 import com.openthos.factorytest.R;
 
 import static android.content.Context.WIFI_SERVICE;
@@ -57,15 +58,7 @@ public class WifiFragment extends Fragment {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                int i = Camera.getNumberOfCameras();
-                if (i > 0) {
-                    getActivity().getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment, new CameraFragment()).commit();
-                } else {
-                    Toast.makeText(getActivity(), "no carema", Toast.LENGTH_SHORT).show();
-                    getActivity().getFragmentManager().beginTransaction()
-                            .replace(R.id.fragment, new BluetoothFragment()).commit();
-                }
+                ((MainActivity) getActivity()).checkNextPage();
             }
         });
         mChangeState.setText("open wifi");

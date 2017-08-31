@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.openthos.factorytest.MainActivity;
 import com.openthos.factorytest.R;
 
 import java.lang.reflect.Method;
@@ -53,7 +54,7 @@ public class BatteryFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new LcdFragment()).commit();
+                ((MainActivity) getActivity()).checkNextPage();
             }
         });
         regiester();

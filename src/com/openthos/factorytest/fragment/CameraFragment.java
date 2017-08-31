@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import java.io.IOException;
 
+import com.openthos.factorytest.MainActivity;
 import com.openthos.factorytest.R;
 
 /**
@@ -37,7 +38,7 @@ public class CameraFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new BluetoothFragment()).commit();
+                ((MainActivity) getActivity()).checkNextPage();
 
             }
         });

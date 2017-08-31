@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.openthos.factorytest.MainActivity;
 import com.openthos.factorytest.R;
 
 import java.io.BufferedReader;
@@ -59,7 +60,7 @@ public class InfoFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new BatteryFragment()).commit();
+                ((MainActivity) getActivity()).checkNextPage();
             }
         });
         return view;

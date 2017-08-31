@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.openthos.factorytest.MainActivity;
 import com.openthos.factorytest.R;
 
 /**
@@ -115,8 +116,7 @@ public class LcdFragment extends Fragment {
                 case MotionEvent.ACTION_UP:
                     if (Math.abs((int) event.getX() - mTempX) < mBitmap.getWidth() / 2
                             && Math.abs((int) event.getY() - mTempY) < mBitmap.getHeight() / 2) {
-                        Toast.makeText(getActivity(), "next", Toast.LENGTH_SHORT).show();
-                        getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new WifiFragment()).commit();
+                        ((MainActivity) getActivity()).checkNextPage();
                     }
                     break;
             }

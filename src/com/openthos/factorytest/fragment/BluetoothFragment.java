@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.io.IOException;
 
+import com.openthos.factorytest.MainActivity;
 import com.openthos.factorytest.R;
 
 import static android.bluetooth.BluetoothAdapter.ACTION_STATE_CHANGED;
@@ -54,7 +55,7 @@ public class BluetoothFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.fragment, new SoundFragment()).commit();
+                ((MainActivity) getActivity()).checkNextPage();
             }
         });
         register();
