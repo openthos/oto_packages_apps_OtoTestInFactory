@@ -47,6 +47,7 @@ public class InfoFragment extends Fragment {
         mGpuVIew = (FrameLayout) view.findViewById(R.id.gpu_view);
         mRefrsh = (Button) view.findViewById(R.id.bt_refresh);
         mNext = (Button) view.findViewById(R.id.bt_next);
+        initGetSuLimit();
         initCmosTime();
         initCpu();
         initMemery();
@@ -64,6 +65,14 @@ public class InfoFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void initGetSuLimit() {
+        try {
+            Runtime.getRuntime().exec(new String[]{"su"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initCmosTime() {
